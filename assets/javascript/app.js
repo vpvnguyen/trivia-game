@@ -14,7 +14,7 @@ $(document).ready(function () {
         intervalSec = setInterval(count, 1000); // for every second, run count
     };
 
-    // 
+    // count function; start timer running down; check if timer is 0
     var count = function () {
         secondsLeft--; //lose a count
 
@@ -34,13 +34,12 @@ $(document).ready(function () {
     };
 
     // hide title; declare that this is the question page; display time left; loop through object and display each question pack
+    // each time this function runs, increment to next question
     var questionPage = function () {
-
-        $('#triviaGame').empty();
-
-        questionBool = true;
-        secondsLeft = 10;
-        $('#triviaGame').append(`<div id='countDown' class='display-2'>00:10`);
+        $('#triviaGame').empty(); // clear content
+        questionBool = true; // declare round is live
+        secondsLeft = 10; // set time interval to 10 seconds
+        $('#triviaGame').append(`<div id='countDown' class='display-2'>00:10`); // show timer
 
         // loop through object of questions and display possible options
         for (var i = 0; i < Object.values(questionObj[questionNum])[2].length; i++) {
