@@ -69,7 +69,7 @@ $(document).ready(function () {
     //Global Variables
     var intervalSec; // set interval to count
     var secondsLeft; // timer on clock
-    var timerRunning = false; // is timer running
+    var timerRunning = false; // is timer running; figure out why timer is running is needed
     var questionBool = false; // is round / game running
     var questionNum = 0; // index to check questions
 
