@@ -66,14 +66,14 @@ $(document).ready(function () {
         countSec();
     };
 
-    //Global Variables
+    // Global Variables
     var intervalSec; // set interval to count
     var secondsLeft; // timer on clock
     var timerRunning = false; // is timer running; figure out why timer is running is needed
     var questionBool = false; // is round / game running
     var questionNum = 0; // index to check questions
 
-    //Questions and Answers
+    // Questions and Answers
     var questionObj = [
         {
             question: 'Question 1',
@@ -103,10 +103,10 @@ $(document).ready(function () {
         console.log('True');
     }
 
-    //Initialation
+    // Initialation
     createStart();
     $('#start').on('click', function () {
         questionPage();
-        //When User Clicks Button
+        // When User Clicks Button
     });
 });
