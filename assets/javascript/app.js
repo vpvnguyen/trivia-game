@@ -1,78 +1,82 @@
 $(document).ready(function () {
 
-    //Functions
-
-    //Initialization Function
+    // Functions
+    // Initialization Function; display game title and start button
     var createStart = function () {
-        $('#triviaGame').append(`<h1 class='display-2'>Trivia Game`)
-        $('#triviaGame').append(`<button id='start' class='btn btn-primary btn-lg'>Start`)
-    }
+        console.log('createStart()');
+        $('#triviaGame').append(`<h1 class='display-2'>Trivia Game`); // title
+        $('#triviaGame').append(`<button id='start' class='btn btn-primary btn-lg'>Start`); // start button
+    };
 
-    //Timer Function
+    // Timer Function; run count() every second
     var countSec = function () {
-        timerRunning = true
-        intervalSec = setInterval(count, 1000)
-    }
+        timerRunning = true; // set that timer is running
+        intervalSec = setInterval(count, 1000); // for every second, run count
+    };
 
+    // 
     var count = function () {
-        secondsLeft--
+        secondsLeft--; //lose a count
 
-        $('#countDown').text(`00:0` + secondsLeft)
+        $('#countDown').text(`00:0` + secondsLeft); // show timer left
 
-        if (secondsLeft === 0 && questionBool === true) {
-            timerRunning = false
-            clearInterval(intervalSec)
-            nextPage()
-            console.log('timeoutpage')
-        } else if (secondsLeft === 0 && questionBool === false) {
-            timerRunning = false
-            clearInterval(intervalSec)
-            questionPage()
-            console.log('next question')
+        if (secondsLeft === 0 && questionBool === true) { // if time is out and game/round is live
+            timerRunning = false; // declare that timer is stopped
+            clearInterval(intervalSec); // clear the interval that was ran
+            nextPage(); // advance next round
+            console.log('timeoutpage');
+        } else if (secondsLeft === 0 && questionBool === false) { // if time is out and game / round is not live
+            timerRunning = false; // declare that timer is stopped
+            clearInterval(intervalSec); // clear the interval that was ran
+            questionPage(); // advance to question page
+            console.log('next question');
         }
-    }
+    };
 
+    // hide title; declare that this is the question page; display time left; loop through object and display each question pack
     var questionPage = function () {
 
-        $('#triviaGame').empty()
+        $('#triviaGame').empty();
 
-        questionBool = true
-        secondsLeft = 10
-        $('#triviaGame').append(`<div id='countDown' class='display-2'>00:10`)
+        questionBool = true;
+        secondsLeft = 10;
+        $('#triviaGame').append(`<div id='countDown' class='display-2'>00:10`);
 
+        // loop through object of questions and display possible options
         for (var i = 0; i < Object.values(questionObj[questionNum])[2].length; i++) {
-            $('#triviaGame').append(`<button id='poss${i}' class='btn btn-primary btn-lg'>${Object.values(questionObj[questionNum])[2][i]}`)
+            console.log(`Length: ${Object.values(questionObj[questionNum])[2].length}`);
+            console.log(`Question: ${Object.values(questionObj[questionNum])[2][i]}`);
+            $('#triviaGame').append(`<button id='poss${i}' class='btn btn-primary btn-lg'>${Object.values(questionObj[questionNum])[2][i]}`);
         }
 
-        questionNum++
+        // increment to next question each time this function is ran
+        questionNum++;
 
-        countSec()
-    }
+        // restart timer and check which round to advance
+        countSec();
+    };
 
+    // interval page between questions / wait time
     var nextPage = function () {
-        $('#triviaGame').empty()
+        $('#triviaGame').empty(); // clear out content
+        questionBool = false; // declare that round isnt running
+        secondsLeft = 3; // set interval to 3 secs to run on this page
+        $('#triviaGame').append(`<div id='countDown' class='display-2'>00:03`); // display 3 second timer
 
-        questionBool = false
-        secondsLeft = 3
-        $('#triviaGame').append(`<div id='countDown' class='display-2'>00:03`)
-
-        countSec()
-    }
-
-
+        // restart timer and check which round to advance
+        countSec();
+    };
 
     //Global Variables
-
-    var intervalSec
-    var secondsLeft
-    var timerRunning = false
-    var questionBool = false
-
-    var questionNum = 0
+    var intervalSec; // set interval to count
+    var secondsLeft; // timer on clock
+    var timerRunning = false; // is timer running
+    var questionBool = false; // is round / game running
+    var questionNum = 0; // index to check questions
 
     //Questions and Answers
-
-    var questionObj = [{
+    var questionObj = [
+        {
             question: 'Question 1',
             answer: 'Answer 1',
             possible: ['Answer 1', 'Answer 2', 'Answer 3']
@@ -87,57 +91,23 @@ $(document).ready(function () {
             answer: 'Answer 1',
             possible: ['Answer 7', 'Answer 8', 'Answer 9']
         }
-    ]
+    ];
 
+    // testing looping through array of objects and outputting string
     for (var i = 0; i < questionObj.length; i++) {
-        console.log(questionObj[i])
-        console.log(Object.values(questionObj[i])[0])
-        console.log(Object.values(questionObj[i])[2][0])
+        console.log(questionObj[i]);
+        console.log(Object.values(questionObj[i])[0]);
+        console.log(Object.values(questionObj[i])[2][0]);
     }
 
     if (Object.values(questionObj[0])[1] === Object.values(questionObj[0])[2][0]) {
-        console.log('True')
+        console.log('True');
     }
 
-
-
-
-
-
-    //Timer
-
-    //    for (var key in questionObj) {
-    //        if (questionObj.hasOwnProperty(key)) {
-    //            console.log(key + " - " + questionObj[key])
-    //        }
-    //    }
-
-
-
-
-
     //Initialation
-
-    createStart()
-
+    createStart();
     $('#start').on('click', function () {
-        questionPage()
-
+        questionPage();
         //When User Clicks Button
-
-
-
-    })
-
-
-
-
-
-
-
-
-
-
-
-
-})
+    });
+});
